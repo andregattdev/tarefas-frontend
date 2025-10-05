@@ -1,0 +1,91 @@
+<mat-tab-group animationDuration="500ms">
+  <mat-tab label="Todas">
+    <ng-container *ngIf="tarefas.length; else vazioTodas">
+      <div class="card-grid">
+        <mat-card *ngFor="let tarefa of tarefas">
+          <mat-card-header>
+            <mat-card-title>{{ tarefa.titulo }}</mat-card-title>
+            <mat-card-subtitle>
+              {{ tarefa.concluida ? 'Concluída' : 'Pendente' }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ tarefa.descricao }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-stroked-button color="primary" (click)="editar(tarefa)">Editar</button>
+            <button mat-stroked-button color="warn" (click)="deletar(tarefa.id!)">Excluir</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+    <ng-template #vazioTodas>
+      <p class="vazio">Nenhuma tarefa cadastrada.</p>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Concluídas">
+    <ng-container *ngIf="tarefasConcluidas.length; else vazioConcluidas">
+      <div class="card-grid">
+        <mat-card *ngFor="let tarefa of tarefasConcluidas">
+          <mat-card-header>
+            <mat-card-title>{{ tarefa.titulo }}</mat-card-title>
+            <mat-card-subtitle>Concluída</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ tarefa.descricao }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-container>
+    <ng-template #vazioConcluidas>
+      <p class="vazio">Nenhuma tarefa concluída.</p>
+    </ng-template>
+  </mat-tab>
+
+<mat-tab label="Pendentes">
+  <ng-container *ngIf="tarefasPendentes.length; else vazioPendentes">
+    <div class="card-grid">
+      <mat-card *ngFor="let tarefa of tarefasPendentes">
+        <mat-card-header>
+          <mat-card-title>{{ tarefa.titulo }}</mat-card-title>
+          <mat-card-subtitle>⏳ Pendente</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ tarefa.descricao }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-stroked-button color="primary" (click)="editar(tarefa)">Editar</button>
+          <button mat-stroked-button color="warn" (click)="deletar(tarefa.id!)">Excluir</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-container>
+  <ng-template #vazioPendentes>
+    <p class="vazio">Nenhuma tarefa pendente.</p>
+  </ng-template>
+</mat-tab>
+</mat-tab-group>
+
+<div class="formulario">
+  <h3>Nova Tarefa</h3>
+  <form (ngSubmit)="adicionarTarefa()" #form="ngForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput name="titulo" [(ngModel)]="novaTarefa.titulo" required autocomplete="off" placeholder="Ex: Comprar leite" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descrição</mat-label>
+      <input matInput name="descricao" [(ngModel)]="novaTarefa.descricao" required autocomplete="off" placeholder="Ex: Ir ao mercado" />
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="novaTarefa.concluida" name="concluida" class="checkbox">
+      Concluída
+    </mat-checkbox>
+
+    <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+      Adicionar
+    </button>
+  </form>
+</div>

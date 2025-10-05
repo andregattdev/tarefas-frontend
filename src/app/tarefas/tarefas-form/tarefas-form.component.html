@@ -1,0 +1,12 @@
+<div class="formulario">
+  <h2>✏️ Editar Tarefa</h2>
+  <form (ngSubmit)="salvar()" #form="ngForm">
+    <input type="text" name="titulo" [(ngModel)]="tarefa.titulo" placeholder="Título" required />
+    <input type="text" name="descricao" [(ngModel)]="tarefa.descricao" placeholder="Descrição" required />
+    <label>
+      <input type="checkbox" [(ngModel)]="tarefa.concluida" name="concluida" />
+      Concluída
+    </label>
+    <button type="submit" [disabled]="form.invalid">Salvar</button>
+  </form>
+</div>

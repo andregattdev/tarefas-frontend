@@ -1,0 +1,20 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$neutral-primary: mat.define-palette(mat.$grey-palette, 700);
+$neutral-accent: mat.define-palette(mat.$grey-palette, 600);
+$neutral-warn: mat.define-palette(mat.$red-palette);
+
+$neutral-theme: mat.define-light-theme((
+  color: (
+    primary: $neutral-primary,
+    accent: $neutral-accent,
+    warn: $neutral-warn,
+  )
+));
+
+@include mat.all-component-themes($neutral-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
